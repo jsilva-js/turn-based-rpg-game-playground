@@ -1,0 +1,59 @@
+// Define light theme variables
+$foreground-rgb-light: 0, 0, 0;
+$background-start-rgb-light: 214, 219, 220;
+$background-end-rgb-light: 255, 255, 255;
+$background-secondary-rgb-light: 200, 200, 200;
+$background-secondary-light-rgb-light: 216, 249, 210;
+$highlight-rgb-light: 37, 38, 38;
+$secondary-rgb-light: 3, 58, 64;
+
+// Define dark theme variables
+$foreground-rgb-dark: 255, 255, 255;
+$background-start-rgb-dark: 0, 0, 0;
+$background-end-rgb-dark: 0, 0, 0;
+$background-secondary-rgb-dark: 33, 33, 33;
+$background-secondary-light-rgb-dark: 37, 37, 37;
+$highlight-rgb-dark: 216, 249, 210;
+$secondary-rgb-dark: 99, 93, 80;
+
+@mixin light-theme {
+  --foreground-rgb: #{$foreground-rgb-light};
+  --background-start-rgb: #{$background-start-rgb-light};
+  --background-end-rgb: #{$background-end-rgb-light};
+  --background-secondary-rgb: #{$background-secondary-rgb-light};
+  --background-secondary-light-rgb: #{$background-secondary-light-rgb-light};
+  --highlight: #{$highlight-rgb-light};
+  --secondary: #{$secondary-rgb-light};
+}
+
+@mixin dark-theme {
+  --foreground-rgb: #{$foreground-rgb-dark};
+  --background-start-rgb: #{$background-start-rgb-dark};
+  --background-end-rgb: #{$background-end-rgb-dark};
+  --background-secondary-rgb: #{$background-secondary-rgb-dark};
+  --background-secondary-light-rgb: #{$background-secondary-light-rgb-dark};
+  --highlight: #{$highlight-rgb-dark};
+  --secondary: #{$secondary-rgb-dark};
+}
+:root {
+  @include light-theme;
+}
+
+.w-md-editor-text {
+  min-height: 100% !important;
+}
+
+.dark {
+  @include dark-theme;
+}
+
+:root {
+  font-family: 'Roboto', sans-serif;
+  background: rgb(var(--background-end-rgb));
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-end-rgb-light));
+}
+
