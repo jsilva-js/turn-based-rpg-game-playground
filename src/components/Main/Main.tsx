@@ -1,5 +1,7 @@
 "use client";
 
+import Board from "../Board";
+import Dashboard from "../Dashboard";
 import Header from "../Layout";
 import Side from "../Side";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitcher";
@@ -11,7 +13,10 @@ function Main() {
       <Header>
         <ThemeSwitch />
       </Header>
-      <Side>somessssthing</Side>
+      <Dashboard>
+        <Side>char</Side>
+        <Board />
+      </Dashboard>
     </>
   );
 }
