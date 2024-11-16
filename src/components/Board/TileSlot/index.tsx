@@ -3,8 +3,8 @@
 import React from "react";
 import { useSpaceStore } from "@/providers/board_space/hook";
 import styles from "./tileslot.module.scss";
-import { to_index } from "@/lib/utils/grid";
 import Tile from "../Tile";
+import { to_index } from "@/lib/utils/grid";
 
 type TileSlotProps = {
   row: number;
@@ -12,12 +12,16 @@ type TileSlotProps = {
 };
 
 const TileSlot: React.FC<TileSlotProps> = ({ row, col }) => {
-  const tile = useSpaceStore((state) => {
-    const idx = to_index(row, col, state.width);
-    return state.tiles[idx];
-  });
+  // Subscribe only to check if a tile exists at this position
+  const hasTile = useSpaceStore(
+    (state) => !!state.tiles[to_index(row, col, state.width)]
+  );
 
-  return <div className={styles.tileSlot}>{tile && <Tile tile={tile} />}</div>;
+  return (
+    <div className={styles.tileSlot}>
+      {hasTile && <Tile row={row} col={col} />}
+    </div>
+  );
 };
 
 export default TileSlot;

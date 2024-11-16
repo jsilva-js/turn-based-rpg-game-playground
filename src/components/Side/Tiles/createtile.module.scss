@@ -1,0 +1,12 @@
+.createTileButton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    width: 100%;
+  
+    &:hover {
+      background-color: #45a049;
+    }
+  }

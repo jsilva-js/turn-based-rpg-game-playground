@@ -1,27 +1,23 @@
 .tile {
-    width: 30px;
-    height: 30px;
-    background-color: #4caf50;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
     border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    font-size: 12px;
   }
   
-  .tile.HOVERED {
-    background-color: #ffa500;
-  }
-  
-  .tile.SELECTED {
-    background-color: #0000ff;
-  }
-  
-  .tile.HILIGHTED {
-    background-color: #ffff00;
-  }
-  
-  .tile.IDLE {
-    background-color: #4caf50;
-  }
+.hovered {
+  background: rgba(var(--foreground-rgb), 0.9);
+}
+
+.idle {
+  background: rgba(var(--foreground-rgb), 0.5);
+}
+.selected {
+  background: rgba(var(--background-end-rgb), 0.9);
+}
+.highlighted {
+  background: rgba(var(--highlight), 0.9);
+}

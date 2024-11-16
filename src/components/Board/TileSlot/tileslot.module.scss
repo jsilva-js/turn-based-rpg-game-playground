@@ -1,13 +1,15 @@
 
   
   .tileSlot {
-    width: 40px;
-    height: 40px;
-    background-color: #ddd;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    background: rgba(var(--foreground-rgb), 0.14);
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #aaa;
     position: relative;
+    cursor: pointer;
   }
   

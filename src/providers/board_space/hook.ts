@@ -2,6 +2,8 @@ import { SpaceStore } from "@/lib/stores/dasboard/space";
 import { SpaceStoreContext } from "../board_space/provider";
 import { useContext } from "react";
 import { useStore } from "zustand";
+import { useShallow } from "zustand/shallow";
+
 
 export const useSpaceStore = <T,>(selector: (store: SpaceStore) => T): T => {
     const spaceStoreContext = useContext(SpaceStoreContext);
@@ -11,5 +13,5 @@ export const useSpaceStore = <T,>(selector: (store: SpaceStore) => T): T => {
     }
 
 
-    return useStore(spaceStoreContext, selector);
+    return useStore(spaceStoreContext, useShallow(selector));
 };

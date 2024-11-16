@@ -1,6 +1,8 @@
 .lay {
     background: rgba(var(--foreground-rgb), 0.3);
     color: rgba(var(--foreground-rgb), 0.8); 
-    height: 100vh;
+
+    display: flex;
+    min-height: 100%;
     width: 3rem;
 }

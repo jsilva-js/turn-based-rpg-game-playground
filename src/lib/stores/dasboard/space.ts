@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { Tile } from './tile';
+import { Tile, TileStatus } from './tile';
 import { to_index } from '@/lib/utils/grid';
 
 
@@ -11,12 +11,18 @@ export type SpaceState = {
     width: number;
     height: number;
     tiles: (Tile | null)[];
+    hoveredTile: number | null;
 };
 
 export type SpaceActions = {
     set_tile: (row: number, col: number) => void;
     set_tiles: (positions: { row: number; col: number }[]) => void;
     clear_tile: (row: number, col: number) => void;
+    hover_tile: (row: number, col: number) => void;
+    select_tile: (row: number, col: number) => void;
+    deselect_tile: (row: number, col: number) => void;
+    create_tile: (row: number, col: number) => void;
+
 };
 
 export type SpaceStore = SpaceState & SpaceActions
@@ -25,6 +31,7 @@ export const defaultInitial: SpaceState = {
     width: x_length,
     height: y_length,
     tiles: Array.from({ length: x_length * y_length }, () => null),
+    hoveredTile: null
 };
 
 export const createSpaceStore = (
@@ -61,6 +68,43 @@ export const createSpaceStore = (
                     const idx = to_index(row, col, state.width);
                     if (state.tiles[idx]) {
                         state.tiles[idx]?.clear_tile();
+                    }
+                })
+            ),
+        hover_tile: (row: number, col: number) =>
+            set(
+                produce((state: SpaceState) => {
+                    const idx = to_index(row, col, state.width);
+                    if (state.hoveredTile !== idx) {
+                        if (state.hoveredTile !== null) {
+                            state.tiles[state.hoveredTile]?.change_tile_status(TileStatus.IDLE);
+                        }
+                        state.tiles[idx]?.change_tile_status(TileStatus.HOVERED);
+                        state.hoveredTile = idx;
+                    }
+                })
+            ),
+        select_tile: (row: number, col: number) =>
+            set(
+                produce((state: SpaceState) => {
+                    const idx = to_index(row, col, state.width);
+                    state.tiles[idx]?.change_tile_status(TileStatus.SELECTED);
+                })
+            ),
+
+        deselect_tile: (row: number, col: number) =>
+            set(
+                produce((state: SpaceState) => {
+                    const idx = to_index(row, col, state.width);
+                    state.tiles[idx]?.change_tile_status(TileStatus.IDLE);
+                })
+            ),
+        create_tile: (row: number, col: number) =>
+            set(
+                produce((state: SpaceState) => {
+                    const idx = to_index(row, col, state.width);
+                    if (state.tiles[idx] === null) {
+                        state.tiles[idx] = new Tile(`${row},${col}`);
                     }
                 })
             ),

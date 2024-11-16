@@ -12,6 +12,7 @@ const Board = () => {
       width: state.width,
       height: state.height,
       set_tile: state.set_tile,
+      set_tiles: state.set_tiles,
     }))
   );
 

@@ -4,8 +4,8 @@ import Board from "../Board";
 import Dashboard from "../Dashboard";
 import Header from "../Layout";
 import Side from "../Side";
+import CreateTile from "../Side/Tiles/CreateTiles";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitcher";
-import styles from "./main.module.scss";
 
 function Main() {
   return (
@@ -14,7 +14,9 @@ function Main() {
         <ThemeSwitch />
       </Header>
       <Dashboard>
-        <Side>char</Side>
+        <Side>
+          <CreateTile />
+        </Side>
         <Board />
       </Dashboard>
     </>
