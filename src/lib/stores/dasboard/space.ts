@@ -10,7 +10,7 @@ const y_length = 24;
 export type SpaceState = {
     width: number;
     height: number;
-    tiles: (Tile | null)[]; // Array of tiles or nulls
+    tiles: (Tile | null)[];
 };
 
 export type SpaceActions = {
@@ -43,7 +43,6 @@ export const createSpaceStore = (
                 })
             ),
 
-        // Set multiple tiles
         set_tiles: (positions) =>
             set(
                 produce((state: SpaceState) => {
@@ -56,7 +55,6 @@ export const createSpaceStore = (
                 })
             ),
 
-        // Clear a tile
         clear_tile: (row, col) =>
             set(
                 produce((state: SpaceState) => {

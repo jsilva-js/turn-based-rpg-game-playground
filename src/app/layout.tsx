@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./global.scss";
 import { ThemeProvider } from "next-themes";
-import MenusLayout from "@/components/Layout";
+import { SpaceStoreProvider } from "@/providers/board_space/provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,12 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" class="dark" style={{ colorScheme: "dark" }}>
+    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <SpaceStoreProvider>{children}</SpaceStoreProvider>
         </ThemeProvider>
       </body>
     </html>
