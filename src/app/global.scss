@@ -47,7 +47,7 @@ $secondary-rgb-dark: 99, 93, 80;
   @include dark-theme;
 }
 
-:root {
+html {
   font-family: 'Roboto', sans-serif;
   background: rgb(var(--background-end-rgb));
 }

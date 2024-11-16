@@ -1,0 +1,9 @@
+.lay {
+    background: rgba(var(--foreground-rgb), 0.2) !important;
+    color: rgba(var(--background-start-rgb), 1) !important;
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
