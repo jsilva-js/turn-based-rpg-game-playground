@@ -11,8 +11,7 @@ type TileSlotProps = {
   col: number;
 };
 
-const TileSlot: React.FC<TileSlotProps> = ({ row, col }) => {
-  // Subscribe only to check if a tile exists at this position
+const TileSlot: React.FC<TileSlotProps> = React.memo(({ row, col }) => {
   const hasTile = useSpaceStore(
     (state) => !!state.tiles[to_index(row, col, state.width)]
   );
@@ -22,6 +21,6 @@ const TileSlot: React.FC<TileSlotProps> = ({ row, col }) => {
       {hasTile && <Tile row={row} col={col} />}
     </div>
   );
-};
+});
 
 export default TileSlot;

@@ -4,17 +4,13 @@ import React, { useEffect } from "react";
 import { useSpaceStore } from "@/providers/board_space/hook";
 import styles from "./board.module.scss";
 import TileSlot from "./TileSlot";
-import { useShallow } from "zustand/shallow";
 
 const Board = () => {
-  const { width, height, set_tile } = useSpaceStore(
-    useShallow((state) => ({
-      width: state.width,
-      height: state.height,
-      set_tile: state.set_tile,
-      set_tiles: state.set_tiles,
-    }))
-  );
+  const { width, height, set_tile } = useSpaceStore((state) => ({
+    width: state.width,
+    height: state.height,
+    set_tile: state.set_tile,
+  }));
 
   useEffect(() => {
     const randomTile1 = {

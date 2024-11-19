@@ -13,19 +13,15 @@ type TileProps = {
 };
 
 const Tile: React.FC<TileProps> = ({ row, col }) => {
-  const { hover_tile, select_tile, deselect_tile, hovered, width, tiles } =
+  const { hover_tile, select_tile, deselect_tile, hovered, width, tile } =
     useSpaceStore((state) => ({
       hover_tile: state.hover_tile,
       select_tile: state.select_tile,
       deselect_tile: state.deselect_tile,
       hovered: state.hoveredTile,
       width: state.width,
-      tiles: state.tiles,
+      tile: state.tiles[to_index(row, col, state.width)],
     }));
-
-  const idx = to_index(row, col, width);
-
-  const tile = tiles[idx];
 
   const handleMouseEnter = () => {
     hover_tile(row, col);
@@ -51,7 +47,9 @@ const Tile: React.FC<TileProps> = ({ row, col }) => {
       onClick={handleClick}
       className={`${styles.tile} 
         ${styles[statuses_map[tile.status]]}`}
-    ></div>
+    >
+      {tile.slot && <div className={styles.charBall}>{tile.slot.id}</div>}
+    </div>
   );
 };
 

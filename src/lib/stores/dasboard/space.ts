@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { produce } from 'immer';
 import { Tile, TileStatus } from './tile';
 import { to_index } from '@/lib/utils/grid';
+import { Char } from '../char';
 
 
 const x_length = 24;
@@ -22,6 +23,7 @@ export type SpaceActions = {
     select_tile: (row: number, col: number) => void;
     deselect_tile: (row: number, col: number) => void;
     create_tile: (row: number, col: number) => void;
+    add_char_to_random_tile: (char: Char) => void;
 
 };
 
@@ -105,6 +107,22 @@ export const createSpaceStore = (
                     const idx = to_index(row, col, state.width);
                     if (state.tiles[idx] === null) {
                         state.tiles[idx] = new Tile(`${row},${col}`);
+                    }
+                })
+            ),
+
+        add_char_to_random_tile: (char: Char) =>
+            set(
+                produce((state: SpaceState) => {
+                    // Find all available tiles
+                    const availableTiles = state.tiles.filter(
+                        (tile) => tile && tile.slot === null
+                    );
+
+                    if (availableTiles.length > 0) {
+                        // Choose a random tile
+                        const randomTile = availableTiles[Math.floor(Math.random() * availableTiles.length)];
+                        randomTile?.set_char(char);
                     }
                 })
             ),

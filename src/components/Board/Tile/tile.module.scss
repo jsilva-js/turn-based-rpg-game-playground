@@ -21,3 +21,15 @@
 .highlighted {
   background: rgba(var(--highlight), 0.9);
 }
+.charBall {
+  width: 20px;
+  height: 20px;
+  background-color: #f00;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+}

@@ -1,8 +1,8 @@
 import { SpaceStore } from "@/lib/stores/dasboard/space";
 import { SpaceStoreContext } from "../board_space/provider";
 import { useContext } from "react";
-import { useStore } from "zustand";
-import { useShallow } from "zustand/shallow";
+import { StoreApi, useStore } from "zustand";
+import { shallow, useShallow } from "zustand/shallow";
 
 
 export const useSpaceStore = <T,>(selector: (store: SpaceStore) => T): T => {
@@ -12,6 +12,7 @@ export const useSpaceStore = <T,>(selector: (store: SpaceStore) => T): T => {
         throw new Error(`useSpaceStore must be used within SpaceStoreProvider`);
     }
 
+    const typedStore = spaceStoreContext as unknown as StoreApi<SpaceStore>;
 
-    return useStore(spaceStoreContext, useShallow(selector));
+    return useStore(typedStore, useShallow(selector));
 };
