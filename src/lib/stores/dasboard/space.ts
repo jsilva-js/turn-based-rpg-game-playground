@@ -162,18 +162,21 @@ export const createSpaceStore = (
         add_char_to_random_tile: (char: Char) =>
             set(
                 produce((state: SpaceState) => {
-                    // Find all available tiles
-                    const availableTiles = state.tiles.map((tile, idx) => ({ tile, idx })).filter(
-                        ({ tile }) => tile && tile.slot === null
-                    );
+                    const idx = to_index(char.row, char.col, state.width);
+                    const tile = state.tiles[idx];
 
-                    if (availableTiles.length > 0) {
-                        // Choose a random tile
-                        const randomTileInfo = availableTiles[Math.floor(Math.random() * availableTiles.length)];
-                        const { tile: randomTile, idx } = randomTileInfo;
-                        if (randomTile) {
-                            // Replace the tile with a new object with updated slot
-                            state.tiles[idx] = { ...randomTile, slot: char };
+                    if (tile && tile.slot === null) {
+                        state.tiles[idx] = { ...tile, slot: char };
+                    } else {
+                        // Find next available tile
+                        for (let i = 0; i < state.tiles.length; i++) {
+                            const t = state.tiles[i];
+                            if (t && t.slot === null) {
+                                state.tiles[i] = { ...t, slot: char };
+                                char.row = Math.floor(i / state.width);
+                                char.col = i % state.width;
+                                break;
+                            }
                         }
                     }
                 })

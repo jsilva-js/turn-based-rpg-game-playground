@@ -6,13 +6,22 @@ import styles from "./addchar.module.scss";
 import { Char } from "@/lib/stores/char";
 
 const AddChar: React.FC = () => {
-  const addCharToRandomTile = useSpaceStore(
+  const add_char_to_random_tile = useSpaceStore(
     (state) => state.add_char_to_random_tile
   );
 
   const handleAddChar = () => {
-    const char = new Char(`char-${Math.random().toString(36).substring(2, 7)}`);
-    addCharToRandomTile(char);
+    const randomRow = Math.floor(Math.random() * 24);
+    const randomCol = Math.floor(Math.random() * 24);
+
+    const char: Char = {
+      id: `char-${Math.random().toString(36).substring(2, 7)}`,
+      row: randomRow,
+      col: randomCol,
+      move_points: 5,
+    };
+
+    add_char_to_random_tile(char);
   };
 
   return (

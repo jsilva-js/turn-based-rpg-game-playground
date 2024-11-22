@@ -3,6 +3,7 @@ import styles from "./tile.module.scss";
 import { useSpaceStore } from "@/providers/board_space/hook";
 import { to_index } from "@/lib/utils/grid";
 import { TileStatus } from "@/lib/stores/dasboard/space";
+import { useCharStore } from "@/lib/stores/char";
 
 type TileProps = {
   row: number;
@@ -23,11 +24,19 @@ const Tile: React.FC<TileProps> = React.memo(({ row, col }) => {
     hover_tile(row, col);
   };
 
+  const move = useCharStore((state) => state.world_map[idx]);
+  const { select_char } = useCharStore();
+
   const handleClick = () => {
-    if (tile?.status === TileStatus.SELECTED) {
-      deselect_tile(row, col);
+    if (tile?.slot) {
+      // Clicked on a character
+      select_char(tile.slot);
     } else {
-      select_tile(row, col);
+      if (tile?.status === TileStatus.SELECTED) {
+        deselect_tile(row, col);
+      } else {
+        select_tile(row, col);
+      }
     }
   };
 
@@ -41,7 +50,7 @@ const Tile: React.FC<TileProps> = React.memo(({ row, col }) => {
     <div
       onMouseEnter={handleMouseEnter}
       onClick={handleClick}
-      className={`${styles.tile} ${styles[statuses_map[tile.status]]}`}
+      className={`${styles.tile} ${styles[statuses_map[!!move ? 2 : tile.status]]}`}
     >
       {tile.slot && <div className={styles.charBall}>{tile.slot.id}</div>}
     </div>
