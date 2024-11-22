@@ -209,8 +209,7 @@ export const createSpaceStore = (
                     }
 
                     // Update char's position
-                    char.row = newRow;
-                    char.col = newCol;
+                    char = { ...char, row: newRow, col: newCol }
                 })
             ),
 
