@@ -3,6 +3,9 @@
 import { createContext, useRef, ReactNode } from "react";
 
 import { createSpaceStore } from "@/lib/stores/dasboard/space";
+import { enableMapSet } from "immer";
+
+enableMapSet();
 
 export type SpaceStoreApi = ReturnType<typeof createSpaceStore>;
 

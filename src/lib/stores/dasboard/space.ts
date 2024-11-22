@@ -36,6 +36,7 @@ export type SpaceActions = {
     deselect_tile: (row: number, col: number) => void;
     create_tile: (row: number, col: number) => void;
     add_char_to_random_tile: (char: Char) => void;
+    move_character: (char: Char, newRow: number, newCol: number) => void
 };
 
 export type SpaceStore = SpaceState & SpaceActions;
@@ -181,5 +182,38 @@ export const createSpaceStore = (
                     }
                 })
             ),
+
+        // src/stores/spaceStore.ts
+        move_character: (char: Char, newRow: number, newCol: number) =>
+            set(
+                produce((state: SpaceState) => {
+                    const oldIdx = to_index(char.row, char.col, state.width);
+                    const newIdx = to_index(newRow, newCol, state.width);
+
+                    // Remove char from old tile
+                    const oldTile = state.tiles[oldIdx];
+                    if (oldTile) {
+                        state.tiles[oldIdx] = { ...oldTile, slot: null };
+                    }
+
+                    // Place char in new tile
+                    const newTile = state.tiles[newIdx];
+                    if (newTile) {
+                        state.tiles[newIdx] = { ...newTile, slot: { ...char, row: newRow, col: newCol } };
+                    } else {
+                        state.tiles[newIdx] = {
+                            id: `${newRow},${newCol}`,
+                            status: TileStatus.IDLE,
+                            slot: { ...char, row: newRow, col: newCol },
+                        };
+                    }
+
+                    // Update char's position
+                    char.row = newRow;
+                    char.col = newCol;
+                })
+            ),
+
+
     }));
 };
